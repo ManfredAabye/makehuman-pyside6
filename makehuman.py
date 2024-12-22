@@ -4,16 +4,37 @@ import argparse, textwrap
 import os
 import sys
 from time import sleep
+import numpy as np
 
 from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import QEventLoop  # Stelle sicher, dass dies vorhanden ist
 
-from PySide6.QtCore import QEventLoop
+
+# Sicherstellen, dass QOpenGLWidget korrekt importiert wird
+from PySide6.QtOpenGLWidgets import QOpenGLWidget
+from OpenGL.GL import glGetString, GL_VERSION
+
+# Umgebungsvariable setzen, um auf Software-Rendering umzustellen
+os.environ['QT_OPENGL'] = 'software'
+
+# Überschreiben der np.full Funktion für uint32
+_original_full = np.full
+
+def safe_full(shape, fill_value, dtype=None, order='C'):
+    if dtype == np.uint32 and fill_value == -1:
+        # Setze den Platzhalterwert auf 0 oder einen validen Standardwert
+        fill_value = 0
+    return _original_full(shape, fill_value, dtype, order)
+
+# np.full überschreiben
+np.full = safe_full
 
 from core.globenv import programInfo, globalObjects
-from gui.mainwindow import  MHMainWindow
-from gui.infowindow import  MHInfoWindow
-from gui.application import  MHApplication
+from gui.mainwindow import MHMainWindow
+from gui.infowindow import MHInfoWindow
+from gui.application import MHApplication
 from core.baseobj import baseClass
+
 
 def main():
     """
