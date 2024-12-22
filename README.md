@@ -1,84 +1,104 @@
-# makehuman-pyside6
-*The program is still under development and is far from being ready for use. I nevertheless decided to change the repository to public mode after a year* 
+# makehuman-pyside6  
+*Das Programm befindet sich noch in der Entwicklung und ist weit davon entfernt, einsatzbereit zu sein. Trotzdem habe ich mich nach einem Jahr entschieden, das Repository auf öffentlich zu stellen.*  
 
-So be careful, we will not restore your box, if new makehuman does not do what it should do. Best to use a virtual environment still, especially on Linux with a python already installed.
+Seien Sie vorsichtig – wir übernehmen keine Verantwortung, wenn die neue Version von MakeHuman nicht wie erwartet funktioniert. Es wird weiterhin empfohlen, eine virtuelle Umgebung zu nutzen, insbesondere unter Linux mit bereits installiertem Python.
 
-MAC is not yet support and it could happen, that it will not be done (if we need to leave openGL in future, Vulkan will be used, not proprietary stuff like Metal).
+**MAC wird derzeit nicht unterstützt**, und es ist möglich, dass dies auch in Zukunft so bleibt (falls OpenGL nicht weiterverwendet wird, wird Vulkan eingesetzt, nicht proprietäre Technologien wie Metal).
 
-The settings in requirements.txt are considered as minimal versions. Newer versions should(!) work.
+Die Einstellungen in der Datei `requirements.txt` gelten als minimale Versionen. Neuere Versionen sollten (!) funktionieren.
 
-* PyOpenGL (for the openGL part)
-* PySide6 (for the gui)
-* numpy (for faster calculation)
-* psutil (for memory debugging, might not be in final version)
+- **PyOpenGL** (für den OpenGL-Teil)  
+- **PySide6** (für die Benutzeroberfläche)  
+- **numpy** (für schnellere Berechnungen)  
+- **psutil** (für Speicher-Debugging, möglicherweise nicht in der finalen Version enthalten)  
 
-When installing these with e.g. pip install, other libraries like shiboken6 will be added.
+Wenn diese z. B. mit `pip install` installiert werden, werden auch andere Bibliotheken wie `shiboken6` hinzugefügt.  
 
-This installation will change for sure, since it is all under development.
+Diese Installation wird sich sicherlich ändern, da sich alles noch in der Entwicklung befindet.
 
-Atm. makehuman.py can only be started on CLI. You also need to 'cd' to the folder.
-Call is with the interpreter in front:
+---
 
-        python3 makehuman.py
+**Derzeit kann `makehuman.py` nur über die Kommandozeile gestartet werden.**  
+Wechseln Sie dazu zunächst in das Verzeichnis:  
+**`cd` in den Ordner**  
+Führen Sie das Skript mit dem Interpreter aus:
 
-Currently syntax is like this:
+```
+python3 makehuman.py
+```
 
-        usage: makehuman.py [-h] [-V] [--nomultisampling] [-l] [-b BASE] [-A] [-v VERBOSE] [model]
+Aktuell ist die Syntax wie folgt:
 
-        positional arguments:
-          model                 name of an mhm model file (use with base mesh
+```
+usage: makehuman.py [-h] [-V] [--nomultisampling] [-l] [-b BASE] [-A] [-v VERBOSE] [model]
 
-        optional arguments:
-          -h, --help            show this help message and exit
-          -V, --version         Show version and License
-          --nomultisampling     disable multisampling (used to display multi transparent layers)
-                                without multisampling normal blend function is used
-          -l                    force to write to log file
-          -b BASE, --base BASE  preselect base mesh use 'none' for no preselection
-          -A, --admin           Support administrative tasks ('Admin'). Command will write into program folder, where makehuman is installed.
-          -v VERBOSE, --verbose VERBOSE
-                        bitwise verbose option (add values)
-                        1 low log level (standard)
-                        2 mid log level
-                        4 memory management
-                        8 file access
-                        16 enable numpy runtime error messages
+positional arguments:
+  model                 Name einer mhm-Modell-Datei (verwendet mit Basis-Mesh)
 
-Hint: there are still prints which do not follow the verbose rules for debugging.
+optionale Argumente:
+  -h, --help            zeigt diese Hilfe und beendet das Programm
+  -V, --version         zeigt die Version und Lizenzinformationen
+  --nomultisampling     deaktiviert Multisampling (zur Anzeige von mehreren transparenten Ebenen)
+                        Ohne Multisampling wird die normale Blend-Funktion genutzt
+  -l                    erzwingt das Schreiben in eine Log-Datei
+  -b BASE, --base BASE  wählt ein Basis-Mesh vor ('none' für keine Vorauswahl)
+  -A, --admin           Unterstützt administrative Aufgaben ('Admin'). Der Befehl schreibt in den Programmordner, in dem MakeHuman installiert ist.
+  -v VERBOSE, --verbose VERBOSE
+                        Bitweise Option für ausführliche Protokolle:
+                        1 niedriges Protokollierungslevel (Standard)
+                        2 mittleres Protokollierungslevel
+                        4 Speicherverwaltung
+                        8 Dateizugriff
+                        16 Aktivierung von numpy-Laufzeitfehlermeldungen
+```
 
-Since makehuman comes with nearly no assets to save space on github, assets must be added.
+**Hinweis:** Es gibt noch Debug-Ausgaben, die nicht den verbose-Einstellungen folgen.
 
-Makehuman can work with two asset folders, one is called system folder, which is the place, where makehuman itself is installed and one is the user folder.
+---
 
-At the moment it is important that you first start makehuman to set your workspace (user folder) so that you can also download the assets in your
-own environment, instead of mixing it with the program code, so that you do not download these assets again and again. This can be done in preferences.
+**Assets hinzufügen:**  
+Da MakeHuman fast keine Assets enthält, um Speicherplatz auf GitHub zu sparen, müssen Assets hinzugefügt werden.
 
-So go to preferences, change MakeHuman user home to e.g. d:\shared\mhuser and logfile to d:\shared\mhuser\log (Windows syntax, Linux accordingly) and press save.
+MakeHuman kann mit zwei Asset-Ordnern arbeiten:
+1. Ein **Systemordner**, in dem MakeHuman selbst installiert ist.  
+2. Ein **Benutzerordner**.
 
-We do not recommend redirecting output in the development phase.
+Starten Sie MakeHuman zunächst, um Ihren Arbeitsbereich (Benutzerordner) festzulegen. So können Sie Assets in Ihrer eigenen Umgebung herunterladen, anstatt sie mit dem Programmcode zu vermischen. Dies verhindert, dass Assets mehrfach heruntergeladen werden. Dies kann in den Einstellungen erfolgen:
 
+1. **Gehen Sie zu den Einstellungen:**  
+   Ändern Sie z. B. den Benutzerordner zu `d:\shared\mhuser` und die Log-Datei zu `d:\shared\mhuser\log` (Windows-Syntax, unter Linux entsprechend).  
+2. **Speichern Sie die Änderungen.**
 
-After setting the paths in preferences also the extra CLI tools are able to work with the user folder.
-* compile_meshes.py
-* compile_targets.py
-* getpackages.py
+**Während der Entwicklung wird nicht empfohlen, Ausgaben umzuleiten.**
 
-These tools have options and can run without interaction (except getpackages.py) for later use in installation procedures,
-but we recommend to start them without any options. In that case you have the chance to abort the command.
+---
 
-* Call **python3 getpackages.py** to get the assets for the hm08 base. (we recommend user space)
-* Call **python3 compile_targets.py** to compile system targets first.
-* Call **python3 compile_meshes.py** to compile meshes on both system + user folder (mhclo + obj will be compiled to mhbin). In system folder the base mesh itself is compiled.
+**Zusätzliche CLI-Tools:**  
+Nach dem Festlegen der Pfade können auch die folgenden CLI-Tools mit dem Benutzerordner arbeiten:
 
-You can also compile the meshes from  makehuman GUI, also the download can be done from there. Since system space is usually protected (esp. on Linux), a special option "-A" has to be used. Then you need to have the correct user permissions as well.
+- `compile_meshes.py`  
+- `compile_targets.py`  
+- `getpackages.py`
 
-Be aware that in future times a packet might already contain the standard assets, so that this installation will be simpler.
+Diese Tools haben Optionen und können später ohne Interaktion ausgeführt werden (außer `getpackages.py`). Es wird jedoch empfohlen, sie ohne Optionen zu starten, um die Möglichkeit zu haben, den Befehl abzubrechen.
 
-Hint: The configuration file containing the path of the user folder can be changed also with an editor just in case. It will keep in place, even when you delete the software.
+1. **`python3 getpackages.py`**: Lädt die Assets für die hm08-Basis herunter (wir empfehlen Benutzerspeicher).  
+2. **`python3 compile_targets.py`**: Kompiliert die System-Targets.  
+3. **`python3 compile_meshes.py`**: Kompiliert Meshes sowohl im System- als auch im Benutzerordner (mhclo + obj werden in mhbin kompiliert). Im Systemordner wird das Basis-Mesh selbst kompiliert.
 
-To find this file simply display the version, it is presented in the last line:
+Diese Funktionen können auch über die MakeHuman-GUI ausgeführt werden. Der Download kann ebenfalls dort erfolgen. Da der Systembereich normalerweise geschützt ist (insbesondere unter Linux), muss dazu die Option **`-A`** verwendet werden. Außerdem müssen die entsprechenden Benutzerrechte vorhanden sein.
 
-	python3 makehuman -V
+**Hinweis:** In Zukunft könnte ein Paket die Standard-Assets bereits enthalten, wodurch die Installation einfacher wird.
 
+---
+
+**Konfigurationsdatei:**  
+Die Datei mit dem Pfad zum Benutzerordner kann auch mit einem Editor geändert werden. Diese Datei bleibt bestehen, auch wenn die Software gelöscht wird.
+
+Um diese Datei zu finden, zeigen Sie einfach die Version an. Sie wird in der letzten Zeile angezeigt:
+
+```
+python3 makehuman -V
+```
 
 
